@@ -17,7 +17,7 @@ services:
 
   kafka-server:
     volumes:
-      - /home/ec2-user/ssl:/bitnami/kafka/config/certs
+      - /home/ubuntu/ssl:/bitnami/kafka/config/certs
     image: 'bitnami/kafka:latest'
     networks:
       - kafka-net
