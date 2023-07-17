@@ -1,10 +1,12 @@
 # kafka-architecture
 
-![image](https://github.com/vijay2181/kafka-architecture/assets/66196388/ab0b9c31-fbf4-4ec6-9a56-f24b5eba370b)
+
+![image](https://github.com/vijay2181/kafka-architecture/assets/66196388/bf2591d2-7dfc-4d3a-9f6b-3d9d3360cd1a)
 
 
 
 take one kafka server and do the below steps
+
 
 CA(CERTIFICATE AUTHORITY)
 -------------------------
