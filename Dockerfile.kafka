@@ -1,0 +1,12 @@
+FROM openjdk:17
+ENV KAFKA_VERSION 3.1.0
+RUN mkdir -p /kafka/kafka-logs
+RUN mkdir -p /opt/kafka && \
+    curl "https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/kafka_2.13-${KAFKA_VERSION}.tgz" \
+    -o /opt/kafka/kafka.tar.gz && \
+    mkdir -p /kafka && cd /kafka && \
+    tar -xvzf /opt/kafka/kafka.tar.gz --strip 1
+EXPOSE 9093 9094 9095
+COPY start-kafka.sh wait-for-zk.sh /usr/bin/
+RUN chmod +x /usr/bin/start-kafka.sh
+ENTRYPOINT ["start-kafka.sh"]

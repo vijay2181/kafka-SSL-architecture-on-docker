@@ -1,0 +1,13 @@
+FROM openjdk:17
+ENV ZOOKEEPER_VERSION 3.7.1
+RUN mkdir -p /zookeeper/data && \
+    mkdir -p /zookeeper/data-log
+RUN mkdir -p /opt/zookeeper && \
+    curl "https://dlcdn.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz" \
+    -o /opt/zookeeper/zookeeper.tar.gz && \
+    mkdir -p /zookeeper && cd /zookeeper && \
+    tar -xvzf /opt/zookeeper/zookeeper.tar.gz --strip 1
+EXPOSE 2181 2888 3888
+COPY start-zookeeper.sh /usr/bin
+RUN chmod +x /usr/bin/start-zookeeper.sh
+ENTRYPOINT ["start-zookeeper.sh"]

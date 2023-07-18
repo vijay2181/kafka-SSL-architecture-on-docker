@@ -1,0 +1,112 @@
+version: '3'
+services:
+    zk1:
+        image: zk-image
+        container_name: zk1
+        build:
+         context: .
+         dockerfile: Dockerfile.zk
+        restart: always
+        hostname: zk1
+        ports:
+            - "2181:2181"
+        environment:
+            ZK_ID: 1
+        volumes:
+          - ./zk1.cfg:/zk1/zk1.cfg
+
+    zk2:
+        image: zk-image
+        container_name: zk2
+        build:
+         context: .
+         dockerfile: Dockerfile.zk
+        restart: always
+        hostname: zk2
+        ports:
+            - "2182:2181"
+        environment:
+            ZK_ID: 2
+        volumes:
+          - ./zk2.cfg:/zk2/zk2.cfg
+
+    zk3:
+        image: zk-image
+        container_name: zk3
+        build: 
+         context: .
+         dockerfile: Dockerfile.zk
+        restart: always
+        hostname: zk3
+        ports:
+            - "2183:2181"
+        environment:
+            ZK_ID: 3
+        volumes:
+          - ./zk3.cfg:/zk3/zk3.cfg
+
+    kafka1:
+        image: my-kafka-ssl:latest
+        container_name: kafka1
+        build:
+         context: .
+         dockerfile: Dockerfile.kafka
+        restart: always
+        hostname: kafka1
+        ports:
+          - "9091:9093"
+        depends_on:
+          - zk1
+          - zk2
+          - zk3
+        environment:
+          BROKER_ID: 1
+          ZK_SERVER: zk1:2181,zk2:2181,zk3:2181
+        volumes:
+          - ./kafka.properties:/broker/kafka.properties
+          - ./secrets/kafka1.truststore.jks:/kafka1/kafka1.truststore.jks
+          - ./secrets/kafka1.keystore.jks:/kafka1/kafka1.keystore.jks
+
+    kafka2:
+        image: my-kafka-ssl:latest
+        container_name: kafka2
+        build:
+         context: .
+         dockerfile: Dockerfile.kafka
+        restart: always
+        hostname: kafka2
+        ports:
+          - "9092:9093"
+        depends_on:
+          - zk1
+          - zk2
+          - zk3
+        environment:
+          BROKER_ID: 2
+          ZK_SERVER: zk1:2181,zk2:2181,zk3:2181
+        volumes:
+          - ./kafka.properties:/broker/kafka.properties
+          - ./secrets/kafka2.truststore.jks:/kafka2/kafka2.truststore.jks
+          - ./secrets/kafka2.keystore.jks:/kafka2/kafka2.keystore.jks
+
+    kafka3:
+        image: my-kafka-ssl:latest
+        container_name: kafka3
+        build:
+         context: .
+         dockerfile: Dockerfile.kafka
+        restart: always
+        hostname: kafka3
+        ports:
+          - "9093:9093"
+        depends_on:
+          - zk1
+          - zk2
+          - zk3
+        environment:
+          BROKER_ID: 3
+          ZK_SERVER: zk1:2181,zk2:2181,zk3:2181
+        volumes:
+          - ./kafka.properties:/broker/kafka.properties
+          - ./secrets/kafka3.truststore.jks:/kafka3/kafka3.truststore.jks
+          - ./secrets/kafka3.keystore.jks:/kafka3/kafka3.keystore.jks
