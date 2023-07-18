@@ -36,3 +36,38 @@ this defines the whole setup.
 
 All the above steps should be done inside kafka broker server only
 
+
+Automated Process:
+------------------
+Run below scripts to bring up 3 kafka and zookeeper cluster on docker-compose
+
+```
+./create-ssl-certs.sh
+```
+
+```
+./start_kafka_cluster_with_ssl.sh
+```
+
+```
+docker ps
+```
+
+to create a topic from a docker client:
+---------------------------------------
+If Kafka is not available in local machine, below commands can be used to run kafka as client in docker container
+
+```
+./create_kafka_topic.sh vijay-test-topic
+```
+
+ubuntu@ip-172-31-86-198:~/kafka-ssl-architecture-on-docker$ ./create_kafka_topic.sh vijay-test-topic
+Created topic vijay-test-topic.
+
+```
+./list_all_topics.sh
+```
+
+ubuntu@ip-172-31-86-198:~/kafka-ssl-architecture-on-docker$ ./list_all_topics.sh
+Following are the list of topics in kafka cluster.. OK!
+vijay-test-topic
