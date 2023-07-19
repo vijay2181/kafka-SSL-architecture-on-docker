@@ -62,10 +62,6 @@ docker ps
 to create a topic from a docker client:
 ---------------------------------------
 
-```
-cd kafka_manage_scripts
-```
-
 If Kafka is not available in local machine, below commands can be used to run kafka as client in docker container
 
 ```
