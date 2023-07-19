@@ -1,0 +1,46 @@
+version: '3'
+services:
+    zk1:
+        image: zk-image
+        container_name: zk1
+        build:
+         context: .
+         dockerfile: Dockerfile.zk
+        restart: always
+        hostname: zk1
+        ports:
+            - "2181:2181"
+        environment:
+            ZK_ID: 1
+        volumes:
+          - ./zk1.cfg:/zk1/zk1.cfg
+
+    zk2:
+        image: zk-image
+        container_name: zk2
+        build:
+         context: .
+         dockerfile: Dockerfile.zk
+        restart: always
+        hostname: zk2
+        ports:
+            - "2182:2181"
+        environment:
+            ZK_ID: 2
+        volumes:
+          - ./zk2.cfg:/zk2/zk2.cfg
+
+    zk3:
+        image: zk-image
+        container_name: zk3
+        build: 
+         context: .
+         dockerfile: Dockerfile.zk
+        restart: always
+        hostname: zk3
+        ports:
+            - "2183:2181"
+        environment:
+            ZK_ID: 3
+        volumes:
+          - ./zk3.cfg:/zk3/zk3.cfg

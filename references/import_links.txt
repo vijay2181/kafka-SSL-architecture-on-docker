@@ -1,0 +1,16 @@
+
+https://fixing-technology.com/2021/05/02/retention-period-and-issue-with-kafka-data-not-getting-deleted/
+
+https://engineering.contentsquare.com/2019/kafka-topics-sizing-how-much-messages-do-i-store/
+
+
+https://strimzi.io/blog/2021/12/17/kafka-segment-retention/
+
+
+
+https://digitalis.io/blog/kafka/kafka-topic-time-based-retention-policies/
+
+https://www.conduktor.io/kafka/kafka-topic-configuration-log-retention
+
+
+https://www.baeldung.com/kafka-message-retention

@@ -1,0 +1,10 @@
+FROM ubuntu:18.04
+#FROM exoplatform/ubuntu:20.04
+RUN apt-get update && apt-get install jq net-tools curl wget vim  openjdk-11-jdk-headless -y
+ENV ZOOKEEPER_VERSION 3.7.1
+ENV JAVA_HOME /usr/lib/jvm/jdk-11.0.12/
+RUN mkdir -p /opt/zookeeper && \
+    curl "https://dlcdn.apache.org/zookeeper/zookeeper-${ZOOKEEPER_VERSION}/apache-zookeeper-${ZOOKEEPER_VERSION}-bin.tar.gz" \
+    -o /opt/zookeeper/zookeeper.tar.gz && \
+    mkdir -p /zookeeper && cd /zookeeper && \
+    tar -xvzf /opt/zookeeper/zookeeper.tar.gz --strip 1

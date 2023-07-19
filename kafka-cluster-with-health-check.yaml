@@ -54,7 +54,7 @@ services:
         restart: always
         hostname: kafka1
         ports:
-          - "9091:9093"
+          - "9091:9092"
         depends_on:
           - zk1
           - zk2
@@ -66,6 +66,12 @@ services:
           - ./kafka.properties:/broker/kafka.properties
           - ./secrets/kafka1.truststore.jks:/kafka1/kafka1.truststore.jks
           - ./secrets/kafka1.keystore.jks:/kafka1/kafka1.keystore.jks
+          - ${PWD}:/tmp
+        healthcheck:
+         test: ["CMD", "/kafka/bin/kafka-topics.sh", "--list", "--bootstrap-server", "kafka1:9092", "--command-config", "/tmp/root.properties"]
+         interval: 10s
+         timeout: 60s
+         retries: 100
 
     kafka2:
         image: my-kafka-ssl:latest
@@ -76,7 +82,7 @@ services:
         restart: always
         hostname: kafka2
         ports:
-          - "9092:9093"
+          - "9092:9092"
         depends_on:
           - zk1
           - zk2
@@ -88,6 +94,13 @@ services:
           - ./kafka.properties:/broker/kafka.properties
           - ./secrets/kafka2.truststore.jks:/kafka2/kafka2.truststore.jks
           - ./secrets/kafka2.keystore.jks:/kafka2/kafka2.keystore.jks
+          - ${PWD}:/tmp
+        healthcheck:
+         test: ["CMD", "/kafka/bin/kafka-topics.sh", "--list", "--bootstrap-server", "kafka2:9092", "--command-config", "/tmp/root.properties"]
+         interval: 10s
+         timeout: 60s
+         retries: 100
+
 
     kafka3:
         image: my-kafka-ssl:latest
@@ -98,7 +111,7 @@ services:
         restart: always
         hostname: kafka3
         ports:
-          - "9093:9093"
+          - "9093:9092"
         depends_on:
           - zk1
           - zk2
@@ -110,3 +123,27 @@ services:
           - ./kafka.properties:/broker/kafka.properties
           - ./secrets/kafka3.truststore.jks:/kafka3/kafka3.truststore.jks
           - ./secrets/kafka3.keystore.jks:/kafka3/kafka3.keystore.jks
+          - ${PWD}:/tmp
+        healthcheck:
+         test: ["CMD", "/kafka/bin/kafka-topics.sh", "--list", "--bootstrap-server", "kafka3:9092", "--command-config", "/tmp/root.properties"]
+         interval: 10s
+         timeout: 60s
+         retries: 100
+
+
+    kafka-manager:
+        image: hlebalbau/kafka-manager:latest
+        container_name: kafka-manager
+        environment:
+          ZK_HOSTS: zk1:2181,zk2:2181,zk3:2181
+          APPLICATION_SECRET: "password"
+        logging:
+          options:
+            max-file: "5"
+            max-size: "10m"
+        ports:
+           - "9000:9000"
+        depends_on:
+          - zk1
+          - zk2
+          - zk3

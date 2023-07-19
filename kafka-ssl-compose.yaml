@@ -1,49 +1,5 @@
 version: '3'
 services:
-    zk1:
-        image: zk-image
-        container_name: zk1
-        build:
-         context: .
-         dockerfile: Dockerfile.zk
-        restart: always
-        hostname: zk1
-        ports:
-            - "2181:2181"
-        environment:
-            ZK_ID: 1
-        volumes:
-          - ./zk1.cfg:/zk1/zk1.cfg
-
-    zk2:
-        image: zk-image
-        container_name: zk2
-        build:
-         context: .
-         dockerfile: Dockerfile.zk
-        restart: always
-        hostname: zk2
-        ports:
-            - "2182:2181"
-        environment:
-            ZK_ID: 2
-        volumes:
-          - ./zk2.cfg:/zk2/zk2.cfg
-
-    zk3:
-        image: zk-image
-        container_name: zk3
-        build:
-         context: .
-         dockerfile: Dockerfile.zk
-        restart: always
-        hostname: zk3
-        ports:
-            - "2183:2181"
-        environment:
-            ZK_ID: 3
-        volumes:
-          - ./zk3.cfg:/zk3/zk3.cfg
 
     kafka1:
         image: my-kafka-ssl:latest
@@ -110,3 +66,20 @@ services:
           - ./kafka.properties:/broker/kafka.properties
           - ./secrets/kafka3.truststore.jks:/kafka3/kafka3.truststore.jks
           - ./secrets/kafka3.keystore.jks:/kafka3/kafka3.keystore.jks
+
+    kafka-manager:
+        image: hlebalbau/kafka-manager:latest
+        container_name: kafka-manager
+        environment:
+          ZK_HOSTS: zk1:2181,zk2:2181,zk3:2181
+          APPLICATION_SECRET: "password"
+        logging:
+          options:
+            max-file: "5"
+            max-size: "10m"
+        ports:
+           - "9000:9000"
+        depends_on:
+          - zk1
+          - zk2
+          - zk3

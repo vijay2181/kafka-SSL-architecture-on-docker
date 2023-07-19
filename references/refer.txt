@@ -1,0 +1,16 @@
+https://www.youtube.com/watch?v=hR_OuiqLgOo&list=PLlBQ_B5-H_xhEHUC6OWI0eide_4wbt8Eo&index=4
+
+https://www.hadoopinrealworld.com/what-is-consumer-offset-and-the-purpose-of-consumer-offset-in-kafka/
+https://rohithsankepally.github.io/Kafka-Hands-On/
+https://sleeplessbeastie.eu/2021/11/15/how-to-reset-offset-of-kafka-consumer-group/
+https://www.baeldung.com/kafka-message-retention
+https://digitalis.io/blog/kafka/kafka-topic-time-based-retention-policies/
+https://www.conduktor.io/kafka/kafka-consumers-in-group-cli-tutorial
+https://dbmstutorials.com/kafka/kafka-consumer-groups.html
+
+
+#kafka topics 
+
+https://www.conduktor.io/kafka/kafka-topics-choosing-the-replication-factor-and-partitions-count
+https://www.xeotek.com/how-many-partitions-do-i-need-in-apache-kafka/
+https://medium.com/event-driven-utopia/understanding-kafka-topic-partitions-ae40f80552e8
